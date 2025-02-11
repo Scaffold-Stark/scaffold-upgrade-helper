@@ -1,27 +1,20 @@
 import React, { useState, useEffect, useDeferredValue } from 'react'
 import styled from '@emotion/styled'
 import { ThemeProvider } from '@emotion/react'
-import { Card, Input, Typography, ConfigProvider, theme } from 'antd'
-import GitHubButton, { ReactGitHubButtonProps } from 'react-github-btn'
+import { Card, ConfigProvider, theme } from 'antd'
+import { ReactGitHubButtonProps } from 'react-github-btn'
 import ReactGA from 'react-ga'
 import createPersistedState from 'use-persisted-state'
 import queryString from 'query-string'
 import VersionSelector from '../common/VersionSelector'
 import DiffViewer from '../common/DiffViewer'
-import Settings from '../common/Settings'
 // @ts-ignore-next-line
 import logo from '../../assets/logo.svg'
 import { SHOW_LATEST_RCS } from '../../utils'
 import { useGetLanguageFromURL } from '../../hooks/get-language-from-url'
 import { useGetPackageNameFromURL } from '../../hooks/get-package-name-from-url'
-import {
-  DEFAULT_APP_NAME,
-  DEFAULT_APP_PACKAGE,
-  PACKAGE_NAMES,
-} from '../../constants'
-import { TroubleshootingGuidesButton } from '../common/TroubleshootingGuidesButton'
+import { DEFAULT_APP_NAME, DEFAULT_APP_PACKAGE } from '../../constants'
 import { DarkModeButton } from '../common/DarkModeButton'
-import { updateURL } from '../../utils/update-url'
 import { deviceSizes } from '../../utils/device-sizes'
 import { lightTheme, darkTheme, type Theme } from '../../theme'
 
@@ -71,24 +64,6 @@ const TitleContainer = styled.div`
   margin-bottom: 8px;
 `
 
-const AppNameField = styled.div`
-  width: 100%;
-`
-
-const AppPackageField = styled.div`
-  width: 100%;
-`
-
-const AppDetailsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  @media ${deviceSizes.tablet} {
-    flex-direction: row;
-  }
-`
-
 const SettingsContainer = styled.div`
   display: flex;
   align-items: center;
@@ -131,18 +106,18 @@ const Home = () => {
   const { packageName: defaultPackageName, isPackageNameDefinedInURL } =
     useGetPackageNameFromURL()
   const defaultLanguage = useGetLanguageFromURL()
-  const [packageName, setPackageName] = useState(defaultPackageName)
-  const [language, setLanguage] = useState(defaultLanguage)
+  const [packageName] = useState(defaultPackageName)
+  const [language] = useState(defaultLanguage)
   const [fromVersion, setFromVersion] = useState<string>('')
   const [toVersion, setToVersion] = useState<string>('')
   const [shouldShowDiff, setShouldShowDiff] = useState<boolean>(false)
-  const [settings, setSettings] = useState<Record<string, boolean>>({
+  const [settings] = useState<Record<string, boolean>>({
     [`${SHOW_LATEST_RCS}`]: false,
   })
 
   const appInfoInURL = getAppInfoInURL()
-  const [appName, setAppName] = useState<string>(appInfoInURL.appName)
-  const [appPackage, setAppPackage] = useState<string>(appInfoInURL.appPackage)
+  const [appName] = useState<string>(appInfoInURL.appName)
+  const [appPackage] = useState<string>(appInfoInURL.appPackage)
 
   // Avoid UI lag when typing.
   const deferredAppName = useDeferredValue(appName)
@@ -171,41 +146,6 @@ const Home = () => {
     setFromVersion(fromVersion)
     setToVersion(toVersion)
     setShouldShowDiff(true)
-  }
-
-  const handlePackageNameAndLanguageChange = ({
-    newPackageName,
-    newLanguage,
-  }: {
-    newPackageName?: string
-    newLanguage: string
-  }) => {
-    let localPackageName =
-      newPackageName === undefined ? packageName : newPackageName
-    let localLanguage = newLanguage === undefined ? language : newLanguage
-
-    updateURL({
-      packageName: localPackageName,
-      language: localLanguage,
-      isPackageNameDefinedInURL:
-        isPackageNameDefinedInURL || newPackageName !== undefined,
-      toVersion: '',
-      fromVersion: '',
-    })
-    setPackageName(localPackageName)
-    setLanguage(localLanguage)
-    setFromVersion('')
-    setToVersion('')
-    setShouldShowDiff(false)
-  }
-
-  const handleSettingsChange = (settingsValues: string[]) => {
-    const normalizedIncomingSettings = settingsValues.reduce((acc, val) => {
-      acc[val] = true
-      return acc
-    }, {})
-
-    setSettings(normalizedIncomingSettings)
   }
 
   // Dark Mode Setup:

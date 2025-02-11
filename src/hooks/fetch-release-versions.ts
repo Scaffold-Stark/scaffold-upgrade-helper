@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { getReleasesFileURL } from '../utils'
 
 export const useFetchReleaseVersions = ({
   packageName,
@@ -14,8 +13,6 @@ export const useFetchReleaseVersions = ({
     const fetchReleaseVersions = async () => {
       setIsLoading(true)
       setIsDone(false)
-      // console.log(getReleasesFileURL({ packageName }), packageName)
-      // const response = await fetch(getReleasesFileURL({ packageName }))
       const tagsResponse = await fetch(
         'https://api.github.com/repos/Scaffold-Stark/scaffold-stark-2/tags'
       )

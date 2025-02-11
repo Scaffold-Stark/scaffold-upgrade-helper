@@ -1,20 +1,11 @@
 import semver from 'semver/preload'
 import {
-  RN_DIFF_REPOSITORIES,
   DEFAULT_APP_NAME,
   DEFAULT_APP_PACKAGE,
   PACKAGE_NAMES,
   RN_CHANGELOG_URLS,
 } from './constants'
 import versions from './releases'
-
-const getRNDiffRepository = ({ packageName }: { packageName: string }) =>
-  RN_DIFF_REPOSITORIES[packageName]
-// https://github.com/Scaffold-Stark/scaffold-stark-2/compare/v0.2.2..v0.3.0.diff
-export const getReleasesFileURL = ({ packageName }: { packageName: string }) =>
-  `https://raw.githubusercontent.com/${getRNDiffRepository({
-    packageName,
-  })}/master/${packageName === PACKAGE_NAMES.RNM ? 'RELEASES_MAC' : 'RELEASES'}`
 
 export const getDiffURL = ({
   packageName,
@@ -27,34 +18,8 @@ export const getDiffURL = ({
   fromVersion: string
   toVersion: string
 }) => {
-  // const languageDir =
-  //   packageName === PACKAGE_NAMES.RNM
-  //     ? 'mac/'
-  //     : packageName === PACKAGE_NAMES.RNW
-  //     ? `${language}/`
-  //     : ''
-
-  // return `https://raw.githubusercontent.com/${getRNDiffRepository({
-  //   packageName,
-  // })}/diffs/diffs/${languageDir}${fromVersion}..${toVersion}.diff`
-  // https://github.com/Scaffold-Stark/scaffold-stark-2/compare/v0.2.2..v0.3.0.diff
   return `https://github.com/Scaffold-Stark/scaffold-stark-2/compare/${fromVersion}..${toVersion}.diff`
 }
-
-const getBranch = ({
-  packageName,
-  language,
-  version,
-}: {
-  packageName: string
-  language?: string
-  version: string
-}) =>
-  packageName === PACKAGE_NAMES.RNM
-    ? `mac/${version}`
-    : packageName === PACKAGE_NAMES.RNW
-    ? `${language}/${version}`
-    : version
 
 interface GetBinaryFileURLProps {
   packageName: string
@@ -69,7 +34,6 @@ export const getBinaryFileURL = ({
   version,
   path,
 }: GetBinaryFileURLProps) => {
-  // https://raw.githubusercontent.com/Scaffold-Stark/scaffold-stark-2/refs/tags/v0.3.24/packages/snfoundry/package.json
   return `https://raw.githubusercontent.com/Scaffold-Stark/scaffold-stark-2/refs/tags/${version}/${path}`
 }
 
@@ -120,8 +84,8 @@ export const getVersionsContentInDiff = ({
 
     // `cleanedVersion` can't be newer than `cleanedToVersion` nor older (or equal) than `fromVersion`
     return (
-      semver.compare(cleanedToVersion, cleanedVersion) !== -1 &&
-      ![0, -1].includes(semver.compare(cleanedVersion, fromVersion))
+      semver.compare(cleanedToVersion!, cleanedVersion!) !== -1 &&
+      ![0, -1].includes(semver.compare(cleanedVersion!, fromVersion))
     )
   })
 }

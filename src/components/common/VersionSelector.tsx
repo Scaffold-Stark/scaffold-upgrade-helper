@@ -185,8 +185,8 @@ const getFirstMajorRelease = ({
     (releasedVersion) =>
       semver.lt(releasedVersion, versionToCompare) &&
       semver.diff(
-        semver.valid(semver.coerce(releasedVersion)),
-        semver.valid(semver.coerce(versionToCompare))
+        semver.valid(semver.coerce(releasedVersion))!,
+        semver.valid(semver.coerce(versionToCompare))!
       ) === 'minor'
   )
 
@@ -234,8 +234,8 @@ const VersionSelector = ({
     packageName,
   })
   const [allVersions, setAllVersions] = useState<string[]>([])
-  const [fromVersionList, setFromVersionList] = useState([])
-  const [toVersionList, setToVersionList] = useState([])
+  const [fromVersionList, setFromVersionList] = useState<string[]>([])
+  const [toVersionList, setToVersionList] = useState<string[]>([])
   const [hasVersionsFromURL, setHasVersionsFromURL] = useState<boolean>(false)
 
   const [localFromVersion, setLocalFromVersion] = useState<string>('')
@@ -296,7 +296,7 @@ const VersionSelector = ({
         })
       )
 
-      setLocalFromVersion(fromVersionToBeSet)
+      setLocalFromVersion(fromVersionToBeSet!)
       setLocalToVersion(toVersionToBeSet)
 
       const doesHaveVersionsInURL = hasFromVersionInURL && hasToVersionInURL
