@@ -10,6 +10,13 @@
 
 ![Image showing a screenshot of Upgrade Helper"](./images/info.png)
 
+## Run locally
+
+```bash
+yarn
+yarn start
+```
+
 ## 📝 License & CoC
 
 This project is released under the [MIT license](./LICENSE).
