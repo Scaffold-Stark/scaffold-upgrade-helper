@@ -8,13 +8,12 @@ import {
   ChangeEventArgs,
 } from 'react-diff-view'
 import 'react-diff-view/style/index.css'
-import { getTransitionDuration, getChangelogURL } from '../../utils'
+import { getTransitionDuration } from '../../utils'
 import DiffSection from './Diff/DiffSection'
 import DiffLoading from './Diff/DiffLoading'
 import ViewStyleOptions from './Diff/DiffViewStyleOptions'
 import CompletedFilesCounter from './CompletedFilesCounter'
 import { useFetchDiff } from '../../hooks/fetch-diff'
-import type { Theme } from '../../theme'
 import type { File } from 'gitdiff-parser'
 
 const Container = styled.div`
@@ -28,11 +27,6 @@ const TopContainer = styled.div`
   margin-top: 16px;
   flex-direction: row;
   justify-content: flex-end;
-`
-
-const Link = styled.a<{ theme?: Theme }>`
-  padding: 4px 15px;
-  color: ${({ theme }) => theme.link};
 `
 
 const getDiffKey = ({
@@ -159,16 +153,6 @@ const DiffViewer = ({
   }
 
   const [, jumpToAnchorOnce] = useReducer(jumpToAnchor, false)
-
-  let changelog
-  if (!toVersion.includes('-rc')) {
-    const href = getChangelogURL({ packageName, version: toVersion })
-    changelog = (
-      <Link href={href} target="_blank" rel="noreferrer">
-        changelog
-      </Link>
-    )
-  }
 
   useEffect(() => {
     if (!isDone) {
