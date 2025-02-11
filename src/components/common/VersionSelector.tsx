@@ -368,7 +368,7 @@ const VersionSelector = ({
         <FromVersionSelector
           showSearch
           data-testid={testIDs.fromVersionSelector}
-          title={`What's your current ${packageName} version?`}
+          title={`What's your current Scaffold-Stark version?`}
           loading={isLoading}
           value={localFromVersion}
           options={fromVersionList}

@@ -116,9 +116,7 @@ interface StarButtonProps extends ReactGitHubButtonProps {
 }
 
 const StarButton = styled(({ className, ...props }: StarButtonProps) => (
-  <div className={className}>
-    <GitHubButton {...props} />
-  </div>
+  <div className={className}>{/* <GitHubButton {...props} /> */}</div>
 ))`
   margin-top: 10px;
   margin-left: 15px;
@@ -240,7 +238,7 @@ const Home = () => {
                   src={logo}
                 />
                 <a href={homepageUrl}>
-                  <TitleHeader>React Native Upgrade Helper</TitleHeader>
+                  <TitleHeader>Scaffold-Stark Upgrade Helper</TitleHeader>
                 </a>
               </TitleContainer>
 
@@ -254,17 +252,6 @@ const Home = () => {
                 >
                   Star
                 </StarButton>
-                {packageName === PACKAGE_NAMES.RN && (
-                  <TroubleshootingGuidesButton />
-                )}
-                <Settings
-                  handleSettingsChange={handleSettingsChange}
-                  packageName={packageName}
-                  onChangePackageNameAndLanguage={
-                    handlePackageNameAndLanguageChange
-                  }
-                  language={language}
-                />
                 <DarkModeButton
                   isDarkMode={isDarkMode as boolean}
                   onClick={toggleDarkMode}
@@ -272,35 +259,6 @@ const Home = () => {
               </SettingsContainer>
             </HeaderContainer>
 
-            <AppDetailsContainer>
-              <AppNameField>
-                <Typography.Title level={5}>
-                  What's your app name?
-                </Typography.Title>
-
-                <Input
-                  size="large"
-                  placeholder={DEFAULT_APP_NAME}
-                  value={appName}
-                  onChange={({ target }) => setAppName((value) => target.value)}
-                />
-              </AppNameField>
-
-              <AppPackageField>
-                <Typography.Title level={5}>
-                  What's your app package?
-                </Typography.Title>
-
-                <Input
-                  size="large"
-                  placeholder={DEFAULT_APP_PACKAGE}
-                  value={appPackage}
-                  onChange={({ target }) =>
-                    setAppPackage((value) => target.value)
-                  }
-                />
-              </AppPackageField>
-            </AppDetailsContainer>
             <VersionSelector
               key={packageName}
               showDiff={handleShowDiff}

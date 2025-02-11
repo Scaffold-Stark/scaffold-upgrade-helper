@@ -39,6 +39,6 @@ export function updateURL({
   if (appName) {
     url.searchParams.set('name', appName)
   }
-
+  console.log('url', url.toString())
   window.history.replaceState(null, '', url.toString())
 }

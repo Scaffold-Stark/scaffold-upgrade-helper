@@ -11,8 +11,6 @@ import 'react-diff-view/style/index.css'
 import { getTransitionDuration, getChangelogURL } from '../../utils'
 import DiffSection from './Diff/DiffSection'
 import DiffLoading from './Diff/DiffLoading'
-import UsefulContentSection from './UsefulContentSection'
-import BinaryDownload from './BinaryDownload'
 import ViewStyleOptions from './Diff/DiffViewStyleOptions'
 import CompletedFilesCounter from './CompletedFilesCounter'
 import { useFetchDiff } from '../../hooks/fetch-diff'
@@ -212,24 +210,7 @@ const DiffViewer = ({
           transition={{ duration: getTransitionDuration(0.5) }}
           onAnimationComplete={jumpToAnchorOnce}
         >
-          <UsefulContentSection
-            isLoading={isLoading}
-            packageName={packageName}
-            fromVersion={fromVersion}
-            toVersion={toVersion}
-          />
-
           <TopContainer>
-            {changelog}
-
-            <BinaryDownload
-              diff={diff}
-              fromVersion={fromVersion}
-              toVersion={toVersion}
-              appName={appName}
-              packageName={packageName}
-            />
-
             <ViewStyleOptions
               handleViewStyleChange={handleViewStyleChange}
               diffViewStyle={diffViewStyle}

@@ -14,12 +14,13 @@ export const useFetchReleaseVersions = ({
     const fetchReleaseVersions = async () => {
       setIsLoading(true)
       setIsDone(false)
-
-      const response = await fetch(getReleasesFileURL({ packageName }))
-
-      const releaseVersions = (await response.text())
-        .split('\n')
-        .filter(Boolean)
+      // console.log(getReleasesFileURL({ packageName }), packageName)
+      // const response = await fetch(getReleasesFileURL({ packageName }))
+      const tagsResponse = await fetch(
+        'https://api.github.com/repos/Scaffold-Stark/scaffold-stark-2/tags'
+      )
+      const tags = await tagsResponse.json()
+      const releaseVersions = tags.map((tag: any) => tag.name)
 
       setReleaseVersions(releaseVersions)
 

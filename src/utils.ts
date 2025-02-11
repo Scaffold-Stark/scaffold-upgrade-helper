@@ -10,7 +10,7 @@ import versions from './releases'
 
 const getRNDiffRepository = ({ packageName }: { packageName: string }) =>
   RN_DIFF_REPOSITORIES[packageName]
-
+// https://github.com/Scaffold-Stark/scaffold-stark-2/compare/v0.2.2..v0.3.0.diff
 export const getReleasesFileURL = ({ packageName }: { packageName: string }) =>
   `https://raw.githubusercontent.com/${getRNDiffRepository({
     packageName,
@@ -27,16 +27,18 @@ export const getDiffURL = ({
   fromVersion: string
   toVersion: string
 }) => {
-  const languageDir =
-    packageName === PACKAGE_NAMES.RNM
-      ? 'mac/'
-      : packageName === PACKAGE_NAMES.RNW
-      ? `${language}/`
-      : ''
+  // const languageDir =
+  //   packageName === PACKAGE_NAMES.RNM
+  //     ? 'mac/'
+  //     : packageName === PACKAGE_NAMES.RNW
+  //     ? `${language}/`
+  //     : ''
 
-  return `https://raw.githubusercontent.com/${getRNDiffRepository({
-    packageName,
-  })}/diffs/diffs/${languageDir}${fromVersion}..${toVersion}.diff`
+  // return `https://raw.githubusercontent.com/${getRNDiffRepository({
+  //   packageName,
+  // })}/diffs/diffs/${languageDir}${fromVersion}..${toVersion}.diff`
+  // https://github.com/Scaffold-Stark/scaffold-stark-2/compare/v0.2.2..v0.3.0.diff
+  return `https://github.com/Scaffold-Stark/scaffold-stark-2/compare/${fromVersion}..${toVersion}.diff`
 }
 
 const getBranch = ({
@@ -67,11 +69,8 @@ export const getBinaryFileURL = ({
   version,
   path,
 }: GetBinaryFileURLProps) => {
-  const branch = getBranch({ packageName, language, version })
-
-  return `https://raw.githubusercontent.com/${getRNDiffRepository({
-    packageName,
-  })}/release/${branch}/${path}`
+  // https://raw.githubusercontent.com/Scaffold-Stark/scaffold-stark-2/refs/tags/v0.3.24/packages/snfoundry/package.json
+  return `https://raw.githubusercontent.com/Scaffold-Stark/scaffold-stark-2/refs/tags/${version}/${path}`
 }
 
 export const removeAppPathPrefix = (path: string, appName = DEFAULT_APP_NAME) =>
