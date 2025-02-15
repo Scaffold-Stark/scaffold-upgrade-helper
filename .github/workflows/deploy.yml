@@ -9,6 +9,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
     steps:
       - name: ⬇️ Checkout repository code
         uses: actions/checkout@v3
@@ -29,3 +34,4 @@ jobs:
         with:
           branch: gh-pages
           folder: build
+          token: ${{ secrets.PAGE_GITHUB_TOKEN }}
