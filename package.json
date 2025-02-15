@@ -2,7 +2,7 @@
   "name": "upgrade-helper",
   "version": "0.1.0",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://scaffold-stark.github.io/scaffold-upgrade-helper",
   "scripts": {
     "build": "EXTEND_ESLINT=true react-app-rewired build",
     "lint": "eslint . --cache --report-unused-disable-directives",
