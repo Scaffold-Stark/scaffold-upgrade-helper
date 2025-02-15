@@ -21,4 +21,6 @@ yarn start
 
 This project is released under the [MIT license](./LICENSE).
 
-Morerover, this projects adopts the [Contributor Covenant Code of Conduct](./CODE_OF_CONDUCT.md) and all contributors are expected to follow it.
+## Acknowledgments
+
+Special thanks to [upgrade-helper](https://github.com/react-native-community/upgrade-helper), which provided the foundation for this project.
