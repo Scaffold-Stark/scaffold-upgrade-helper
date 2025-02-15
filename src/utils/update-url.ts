@@ -1,21 +1,9 @@
-import { PACKAGE_NAMES } from '../constants'
-
 export function updateURL({
-  packageName,
-  language,
-  isPackageNameDefinedInURL,
   fromVersion,
   toVersion,
-  appPackage,
-  appName,
 }: {
-  packageName: string
-  language: string
-  isPackageNameDefinedInURL: boolean
   fromVersion: string
   toVersion: string
-  appPackage: string
-  appName: string
 }) {
   const url = new URL(window.location.origin)
   url.pathname = window.location.pathname
@@ -27,18 +15,5 @@ export function updateURL({
   if (toVersion) {
     url.searchParams.set('to', toVersion)
   }
-  if (isPackageNameDefinedInURL) {
-    url.searchParams.set('package', packageName)
-  }
-  if (packageName === PACKAGE_NAMES.RNW) {
-    url.searchParams.set('language', language)
-  }
-  if (appPackage) {
-    url.searchParams.set('package', appPackage)
-  }
-  if (appName) {
-    url.searchParams.set('name', appName)
-  }
-  console.log('url', url.toString())
   window.history.replaceState(null, '', url.toString())
 }

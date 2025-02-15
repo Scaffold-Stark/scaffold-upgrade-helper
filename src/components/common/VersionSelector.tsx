@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 import { Popover } from 'antd'
 import semver from 'semver/preload'
@@ -173,7 +173,6 @@ const getReleasedVersions = ({
   )
 }
 
-// Finds the first minor release (which in react-native is the major) when compared to another version
 const getFirstMajorRelease = ({
   releasedVersions,
   versionToCompare,
@@ -214,25 +213,11 @@ const doesVersionExist = ({
 }
 
 const VersionSelector = ({
-  packageName,
-  language,
-  isPackageNameDefinedInURL,
   showDiff,
-  showReleaseCandidates,
-  appPackage,
-  appName,
 }: {
-  packageName: string
-  language: string
-  isPackageNameDefinedInURL: boolean
   showDiff: (args: { fromVersion: string; toVersion: string }) => void
-  showReleaseCandidates: boolean
-  appPackage: string
-  appName: string
 }) => {
-  const { isLoading, isDone, releaseVersions } = useFetchReleaseVersions({
-    packageName,
-  })
+  const { isLoading, isDone, releaseVersions } = useFetchReleaseVersions()
   const [allVersions, setAllVersions] = useState<string[]>([])
   const [fromVersionList, setFromVersionList] = useState<string[]>([])
   const [toVersionList, setToVersionList] = useState<string[]>([])
@@ -270,7 +255,7 @@ const VersionSelector = ({
         releasedVersions: releaseVersions,
         toVersion: toVersionToBeSet,
         latestVersion,
-        showReleaseCandidates,
+        showReleaseCandidates: false,
       })
 
       setAllVersions(sanitizedVersions)
@@ -307,13 +292,7 @@ const VersionSelector = ({
     if (isDone) {
       fetchVersions()
     }
-  }, [
-    isDone,
-    releaseVersions,
-    setLocalFromVersion,
-    setLocalToVersion,
-    showReleaseCandidates,
-  ])
+  }, [isDone, releaseVersions, setLocalFromVersion, setLocalToVersion])
 
   useEffect(() => {
     if (isLoading) {
@@ -342,7 +321,6 @@ const VersionSelector = ({
     localFromVersion,
     localToVersion,
     hasVersionsFromURL,
-    showReleaseCandidates,
   ])
 
   const onShowDiff = () => {
@@ -352,18 +330,13 @@ const VersionSelector = ({
     })
 
     updateURL({
-      packageName,
-      language,
-      isPackageNameDefinedInURL,
       fromVersion: localFromVersion,
       toVersion: localToVersion,
-      appPackage,
-      appName,
     })
   }
 
   return (
-    <Fragment>
+    <>
       <Selectors>
         <FromVersionSelector
           showSearch
@@ -400,7 +373,7 @@ const VersionSelector = ({
       </Selectors>
 
       <UpgradeButton ref={upgradeButtonEl} onShowDiff={onShowDiff} />
-    </Fragment>
+    </>
   )
 }
 

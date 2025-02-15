@@ -14,8 +14,6 @@ import {
   TokenNode,
 } from 'react-diff-view'
 import DiffHeader from './DiffHeader'
-import { getComments } from './DiffComment'
-import { replaceAppDetails } from '../../../utils'
 import type { Theme } from '../../../theme'
 import type { ChangeEventArgs } from 'react-diff-view'
 import type { DefaultRenderToken } from 'react-diff-view/types/context'
@@ -243,7 +241,6 @@ const Diff = ({
   const getHunksWithAppName = useCallback(
     (originalHunks: HunkData[]) => {
       if (!appName && !appPackage) {
-        // No patching of rn-diff-purge output required.
         return originalHunks
       }
 
@@ -251,9 +248,9 @@ const Diff = ({
         ...hunk,
         changes: hunk.changes.map((change) => ({
           ...change,
-          content: replaceAppDetails(change.content, appName, appPackage),
+          content: change.content,
         })),
-        content: replaceAppDetails(hunk.content, appName, appPackage),
+        content: hunk.content,
       }))
     },
     [appName, appPackage]
@@ -264,13 +261,6 @@ const Diff = ({
   } else if (isDiffCompleted && isDiffCollapsed === undefined) {
     setIsDiffCollapsed(true)
   }
-
-  const diffComments = getComments({
-    packageName,
-    newPath,
-    fromVersion,
-    toVersion,
-  })
 
   const updatedHunks: HunkData[] = React.useMemo(
     () => getHunksWithAppName(hunks),
@@ -310,7 +300,7 @@ const Diff = ({
         onCompleteDiff={onCompleteDiff}
         appName={appName}
         appPackage={appPackage}
-        diffComments={diffComments}
+        diffComments={[]}
         packageName={packageName}
       />
 
@@ -321,7 +311,7 @@ const Diff = ({
           hunks={hunks}
           renderToken={renderToken}
           tokens={tokens}
-          widgets={diffComments}
+          widgets={{}}
           optimizeSelection={true}
           selectedChanges={selectedChanges}
         >

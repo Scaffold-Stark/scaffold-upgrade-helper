@@ -32,7 +32,6 @@ export const useFetchDiff = ({
         `https://api.github.com/repos/Scaffold-Stark/scaffold-stark-2/compare/${fromVersion}...${toVersion}`
       )
       const json = await response_.json()
-      console.log(json)
       let diff_buf = ''
       json.files.forEach(async (file: any) => {
         if (file.status === 'added') {
@@ -54,29 +53,6 @@ export const useFetchDiff = ({
           diff_buf += `+++ /dev/null\n`
           diff_buf += file.patch + '\n'
         } else if (file.status === 'renamed') {
-          // console.log('========= renamed', file)
-          // const content = await fetch(file.contents_url)
-          // const content_json = await content.json()
-          // console.log(atob(content_json.content))
-          // console.log(
-          //   atob(content_json.content)
-          //     .split('\n')
-          //     .map((line) => `-${line}`)
-          //     .join('\n')
-          // )
-          // diff_buf += `diff --git a/${file.previous_filename} b/${file.previous_filename}\n`
-          // diff_buf += `index ${file.sha}0\n`
-          // diff_buf += `--- a/${file.previous_filename}\n`
-          // diff_buf += `+++ /dev/null\n`
-          // diff_buf += `@@ -0,0 +0,0 @@\n`
-          // diff_buf +=
-          //   atob(content_json.content)
-          //     .split('\n')
-          //     .map((line) => `-${line}`)
-          //     .join('\n') + '\n'
-          // diff_buf += `diff --git a/${file.previous_filename} b/${file.filename}\n`
-          // diff_buf += `rename from ${file.previous_filename}\n`
-          // diff_buf += `rename to ${file.previous_filename}\n`
           diff_buf += `diff --git a/${file.previous_filename} b/${file.filename}
 rename from ${file.previous_filename}
 rename to ${file.filename}\n`
@@ -87,8 +63,6 @@ rename to ${file.filename}\n`
 
       setIsLoading(false)
       setIsDone(true)
-
-      return
     }
 
     if (shouldShowDiff) {

@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { HTMLMotionProps, motion } from 'framer-motion'
-import { removeAppPathPrefix, getVersionsContentInDiff } from '../../../utils'
 import Markdown from '../Markdown'
 import type { Theme } from '../../../theme'
-import type {
-  LineChangeT,
-  ReleaseCommentT,
-  ReleaseT,
-} from '../../../releases/types'
+import type { LineChangeT } from '../../../releases/types'
 
 interface ContainerProps
   extends React.PropsWithChildren<HTMLMotionProps<'div'>> {
@@ -110,76 +105,6 @@ const Content = styled(Markdown)`
   transition: opacity 0.25s ease-out;
 `
 
-const LINE_CHANGE_TYPES = {
-  ADD: 'I',
-  DELETE: 'D',
-  NEUTRAL: 'N',
-}
-
-const getLineNumberWithType = ({
-  lineChangeType,
-  lineNumber,
-}: {
-  lineChangeType: LineChangeT
-  lineNumber: number
-}) =>
-  `${
-    LINE_CHANGE_TYPES[
-      lineChangeType.toUpperCase() as keyof typeof LINE_CHANGE_TYPES
-    ]
-  }${lineNumber}`
-
-const getComments = ({
-  packageName,
-  newPath,
-  fromVersion,
-  toVersion,
-}: {
-  packageName: string
-  newPath: string
-  fromVersion: string
-  toVersion: string
-}) => {
-  const newPathSanitized = removeAppPathPrefix(newPath)
-
-  const versionsInDiff = getVersionsContentInDiff({
-    packageName,
-    fromVersion,
-    toVersion,
-  }).filter(
-    ({ comments }: ReleaseT) =>
-      comments &&
-      comments.length > 0 &&
-      comments.some(({ fileName }) => fileName === newPathSanitized)
-  )
-
-  return versionsInDiff.reduce((allComments, version: ReleaseT) => {
-    const comments = version.comments?.reduce(
-      (
-        versionComments,
-        { fileName, lineChangeType, lineNumber, content }: ReleaseCommentT
-      ) => {
-        if (fileName !== newPathSanitized) {
-          return versionComments
-        }
-
-        return {
-          ...versionComments,
-          [getLineNumberWithType({ lineChangeType, lineNumber })]: (
-            <DiffComment content={content} lineChangeType={lineChangeType} />
-          ),
-        }
-      },
-      {}
-    )
-
-    return {
-      ...allComments,
-      ...comments,
-    }
-  }, {})
-}
-
 const DiffComment = ({
   content,
   lineChangeType,
@@ -209,5 +134,4 @@ const DiffComment = ({
   )
 }
 
-export { getComments }
 export default DiffComment

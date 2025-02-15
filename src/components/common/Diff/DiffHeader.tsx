@@ -10,7 +10,6 @@ import {
   RollbackOutlined,
   LinkOutlined,
 } from '@ant-design/icons'
-import { getFilePathsToShow } from '../../../utils'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import DiffCommentReminder from './DiffCommentReminder'
 import DownloadFileButton from '../DownloadFileButton'
@@ -333,12 +332,10 @@ const DiffHeader = ({
   packageName,
   ...props
 }: DiffHeaderProps) => {
-  const sanitizedFilePaths = getFilePathsToShow({
+  const sanitizedFilePaths = {
     oldPath,
     newPath,
-    appName,
-    appPackage,
-  })
+  }
 
   const id = React.useMemo(
     () => generatePathId(oldPath, newPath),

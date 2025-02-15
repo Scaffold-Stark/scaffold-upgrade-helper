@@ -1,6 +1,6 @@
 {
-  "short_name": "Upgrade RN apps",
-  "name": "Upgrade your React Native Apps",
+  "short_name": "Upgrade Scaffold-Stark apps",
+  "name": "Upgrade your Scaffold-Stark apps",
   "icons": [
     {
       "src": "favicon.ico",

@@ -9,12 +9,4 @@ module.exports = {
     'import/no-anonymous-default-export': 'off',
     'react-hooks/exhaustive-deps': 'off',
   },
-  overrides: [
-    {
-      files: ['src/__tests__/**/*'],
-      env: {
-        jest: true,
-      },
-    },
-  ],
 }

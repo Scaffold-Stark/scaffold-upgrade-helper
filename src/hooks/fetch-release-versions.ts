@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const useFetchReleaseVersions = ({
-  packageName,
-}: {
-  packageName: string
-}) => {
+export const useFetchReleaseVersions = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isDone, setIsDone] = useState<boolean>(false)
   const [releaseVersions, setReleaseVersions] = useState<string[]>([])
@@ -28,7 +24,7 @@ export const useFetchReleaseVersions = ({
     }
 
     fetchReleaseVersions()
-  }, [packageName])
+  }, [])
 
   return {
     isLoading,
