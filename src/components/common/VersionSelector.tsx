@@ -43,6 +43,32 @@ const ToVersionSelector = styled(
     )
 )``
 
+const InstructionsContainer = styled.div`
+  margin: 24px 0;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background-color: #fafafa;
+
+  p {
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  p:not(:last-child) {
+    margin-bottom: 12px;
+  }
+
+  a {
+    color: #1890ff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`
+
 const getVersionsInURL = (): {
   fromVersion: string
   toVersion: string
@@ -371,6 +397,32 @@ const VersionSelector = ({
           }
         />
       </Selectors>
+
+      <InstructionsContainer>
+        <p>
+          You can find your project's version in the `package.json` file in your
+          project's root directory.
+        </p>
+        <p>
+          Alternatively, you can check the version on the{' '}
+          <a
+            href="https://github.com/scaffold-stark/scaffold-stark-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Scaffold Stark GitHub repository
+          </a>{' '}
+          or the{' '}
+          <a
+            href="https://www.npmjs.com/package/scaffold-stark"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            NPM page
+          </a>
+          .
+        </p>
+      </InstructionsContainer>
 
       <UpgradeButton ref={upgradeButtonEl} onShowDiff={onShowDiff} />
     </>
