@@ -35,6 +35,11 @@ export interface Theme {
     background: string
     border: string
   }
+
+  instruction: {
+    background: string
+    border: string
+  }
 }
 export const lightTheme: Theme = {
   background: '#FFFFFF',
@@ -75,6 +80,11 @@ export const lightTheme: Theme = {
     background: '#d5eafd',
     text: '#7dadda',
     border: '#1890ff',
+  },
+
+  instruction: {
+    background: '#fafafa',
+    border: '#d9d9d9',
   },
 }
 export const darkTheme: Theme = {
@@ -118,5 +128,10 @@ export const darkTheme: Theme = {
     text: '#7dadda',
     background: '#0E5699',
     border: '#aabbca',
+  },
+
+  instruction: {
+    background: '#161b22',
+    border: '#30363d',
   },
 }

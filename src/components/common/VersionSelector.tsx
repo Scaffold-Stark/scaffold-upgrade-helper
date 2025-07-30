@@ -46,9 +46,9 @@ const ToVersionSelector = styled(
 const InstructionsContainer = styled.div`
   margin: 24px 0;
   padding: 16px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${({ theme }) => theme.instruction.border};
   border-radius: 6px;
-  background-color: #fafafa;
+  background-color: ${({ theme }) => theme.instruction.background};
 
   p {
     margin: 0;
