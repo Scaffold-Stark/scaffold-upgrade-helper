@@ -45,27 +45,77 @@ const ToVersionSelector = styled(
 
 const InstructionsContainer = styled.div`
   margin: 24px 0;
-  padding: 16px;
+  padding: 20px;
   border: 1px solid ${({ theme }) => theme.instruction.border};
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: ${({ theme }) => theme.instruction.background};
+  color: ${({ theme }) => theme.text};
 
-  p {
-    margin: 0;
-    line-height: 1.5;
+  h3 {
+    margin: 0 0 16px 0;
+    color: ${({ theme }) => theme.text};
+    font-size: 18px;
+    font-weight: 600;
   }
 
-  p:not(:last-child) {
-    margin-bottom: 12px;
+  h4 {
+    margin: 16px 0 8px 0;
+    color: ${({ theme }) => theme.text};
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+    color: ${({ theme }) => theme.text};
+  }
+
+  ol,
+  ul {
+    margin: 8px 0 16px 0;
+    padding-left: 20px;
+    line-height: 1.6;
+    color: ${({ theme }) => theme.text};
+  }
+
+  li {
+    margin-bottom: 6px;
+    color: ${({ theme }) => theme.text};
+  }
+
+  code {
+    background-color: ${({ theme }) => theme.border};
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo',
+      'Courier', monospace;
+    font-size: 0.9em;
+    color: ${({ theme }) => theme.text};
   }
 
   a {
-    color: #1890ff;
+    color: ${({ theme }) => theme.link};
     text-decoration: none;
 
     &:hover {
+      color: ${({ theme }) => theme.linkHover};
       text-decoration: underline;
     }
+  }
+
+  strong {
+    font-weight: 600;
+    color: ${({ theme }) => theme.text};
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid ${({ theme }) => theme.instruction.border};
+    margin: 12px 0;
+    display: block;
   }
 `
 
@@ -399,20 +449,39 @@ const VersionSelector = ({
       </Selectors>
 
       <InstructionsContainer>
+        <h3>📋 How to find your Scaffold Stark version</h3>
+
+        <h4>Method 1: Check your package.json file (Recommended)</h4>
+        <ol>
+          <li>Open your Scaffold Stark project folder</li>
+          <li>
+            Look for the <code>package.json</code> file in the root directory
+            (same level as your README.md)
+          </li>
+          <li>
+            Open <code>package.json</code> in any text editor
+          </li>
+          <li>
+            Find the <code>"name"</code> field - it should contain{' '}
+            <code>"scaffold-stark-2"</code>
+          </li>
+          <li>
+            Look for the <code>"version"</code> field right below it - this is
+            your current version (e.g., "2.0.0")
+          </li>
+        </ol>
+
+        <h4>Method 2: Check online repositories</h4>
         <p>
-          You can find your project's version in the `package.json` file in your
-          project's root directory.
-        </p>
-        <p>
-          Alternatively, you can check the version on the{' '}
+          You can also check the latest versions on{' '}
           <a
-            href="https://github.com/scaffold-stark/scaffold-stark-2"
+            href="https://github.com/scaffold-stark/scaffold-stark-2/releases"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Scaffold Stark GitHub repository
+            Scaffold Stark GitHub releases
           </a>{' '}
-          or the{' '}
+          or{' '}
           <a
             href="https://www.npmjs.com/package/scaffold-stark"
             target="_blank"
@@ -421,6 +490,77 @@ const VersionSelector = ({
             NPM page
           </a>
           .
+        </p>
+
+        <h3>🚀 How to use the upgrade diffs</h3>
+        <p>
+          Once you click "Show me how to upgrade!", this tool will generate a
+          detailed comparison showing:
+        </p>
+        <ul>
+          <li>
+            <strong>📁 File changes:</strong> Each file that needs to be
+            modified, added, or removed
+          </li>
+          <li>
+            <strong>🔍 Line-by-line diffs:</strong> Exact changes showing what
+            to remove (red) and add (green)
+          </li>
+          <li>
+            <strong>📋 Action buttons:</strong> Each file has three helpful
+            buttons at the top right
+          </li>
+          <li>
+            <strong>✅ Progress tracking:</strong> Mark files as completed to
+            track your progress
+          </li>
+        </ul>
+
+        <h4>Action Buttons for Each File</h4>
+        <p>
+          Each file diff comes with three action buttons to help you manage the
+          upgrade process:
+        </p>
+        <img
+          src="https://res.cloudinary.com/dv765kdgq/image/upload/v1754086601/Screenshot_From_2025-08-02_01-15-50_tybqty.png"
+          alt="Three action buttons: Raw, Copy, and Mark as viewed"
+          style={{ maxWidth: '100%', height: 'auto', margin: '8px 0' }}
+        />
+        <ul>
+          <li>
+            <strong>Raw:</strong> View the complete file content without
+            formatting
+          </li>
+          <li>
+            <strong>Copy:</strong> Copy the entire updated file content to your
+            clipboard
+          </li>
+          <li>
+            <strong>Mark as viewed:</strong> Track your progress by marking
+            files you've completed
+          </li>
+        </ul>
+
+        <h4>Progress Tracker</h4>
+        <p>
+          As you mark files as viewed, a progress counter appears at the bottom
+          right showing your completion status:
+        </p>
+        <img
+          src="https://res.cloudinary.com/dv765kdgq/image/upload/v1754086801/Screenshot_From_2025-08-02_01-19-37_vfr91d.png"
+          alt="Progress tracker showing completed files count"
+          style={{ maxWidth: '100%', height: 'auto', margin: '8px 0' }}
+        />
+        <p>
+          This counter helps you keep track of which files you've reviewed and
+          how many are left to complete your upgrade.
+        </p>
+
+        <p>
+          <strong>💡 Pro tip:</strong> Work through the files one by one, making
+          the suggested changes to your local project. Use the "Copy" button to
+          easily replace file contents, and mark files as viewed to track your
+          progress!
         </p>
       </InstructionsContainer>
 
